@@ -1,0 +1,14 @@
+
+<p id="notice"><%= notice %></p>
+
+<% @app.attributes.each do |attr, value| %>
+  <p> 
+    <strong> <%= attr %> : </strong>
+     <%= value %>
+  </p>
+<% end %>
+
+<%= link_to 'Edit', edit_app_path(@app) %>
+<%= link_to 'Delete', app_path(@app), method: :delete %><br>
+
+<%= link_to 'Back', client_apps_path(@app.client_id) %>

@@ -1,0 +1,12 @@
+<% if client_signed_in? %>
+  <%= current_client.id %>
+  <%= link_to 'New App', new_client_app_path(current_client.id) %>
+  <br><br>
+  <% current_client.apps.each do |app| %>
+    <%=  link_to app.id, app %>
+  <% end %>
+  <br><br>
+  <%= link_to 'LogOut', destroy_client_session_path, method: :delete %>
+<% else %>
+  <%= link_to 'New client', new_client_registration_path %>
+<% end %>
