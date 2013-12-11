@@ -1,5 +1,5 @@
 class Api::UsersController < Api::ApiController
-  before_filter :auth_token, only: [:profile]
+  before_filter :auth_token, only: [:profile, :logout]
   before_action :set_user_service
  
 
@@ -13,9 +13,14 @@ class Api::UsersController < Api::ApiController
     end
   end
 
-  def signin
-    user_to_sigin = request_to_json
-    user = @users_service.sign_in(@app._id, user_to_sigin)   
+  def logout
+    @token_service.delete(@app._id, request.headers['token'])
+    render :nothing => true, :status => :ok
+  end
+
+  def login
+    user_to_login = request_to_json
+    user = @users_service.sign_in(@app._id, user_to_login)   
     render json: prepare_user(user, @app._id) 
   end
 

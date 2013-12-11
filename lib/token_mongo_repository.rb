@@ -8,6 +8,10 @@ class TokenMongoRepository < BaseMongoRepository
     token['token']
   end
 
+  def delete app, token
+    database(app, :tokens).find(token: token['token']).remove
+  end
+
   def get_from_token(app, token)
    database(app, :tokens).find(token: token).one
   end

@@ -9,6 +9,11 @@ class TokenMongoService < BaseService
     token_repository.token_exist? app, token
   end
 
+  def delete app, token
+    db_token = token_repository.get_from_token app, token
+    token_repository.delete app, db_token
+  end
+
   private 
 
   def token_repository

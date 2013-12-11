@@ -7,10 +7,11 @@ Yabaas::Application.routes.draw do
   end
 # , defaults: {format: 'json'}
   namespace :api, defaults: {format: 'json'} do
-    post ':app_id/user/signin' => 'users#signin'
+    post ':app_id/user/login' => 'users#login'
+    delete ':app_id/user/logout' => 'users#logout'
     post ':app_id/user' => 'users#create'
     get ':app_id/user/profile' => 'users#profile', as: :get_profile
-    get ':app_id/user/:id' => 'users#show', as: :get_user
+ #   get ':app_id/user/:id' => 'users#show', as: :get_user
     post ':app_id/:resource' => 'resources#create'
   end
 
