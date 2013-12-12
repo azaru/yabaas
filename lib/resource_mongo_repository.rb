@@ -6,4 +6,8 @@ class ResourceMongoRepository  < BaseMongoRepository
   def get app, resource_name, resource_id
     database(app, resource_name).find(_id: BSON::ObjectId.from_string(resource_id)).one
   end
+
+  def get_all app, resource_name
+    database(app, resource_name).find()
+  end
 end

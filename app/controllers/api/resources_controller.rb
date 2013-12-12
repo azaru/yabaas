@@ -13,6 +13,11 @@ class Api::ResourcesController < Api::ApiController
     render json: remove_private_params(resource)
   end
 
+  def index
+    resources = @resource_service.get_all(@app._id, params[:resource])
+    render json: resources.reduce([]) {|memo, resource| memo << resource['_id'].to_s}
+  end
+
   private
 
   def set_resource_service

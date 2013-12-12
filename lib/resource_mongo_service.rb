@@ -11,6 +11,10 @@ class ResourceMongoService < BaseService
     resource_repository.get app, resource_name, resource_id
   end
 
+  def get_all app, resource_name
+    resource_repository.get_all app, resource_name
+  end
+
   private
   
   def resource_repository
