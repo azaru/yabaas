@@ -11,8 +11,9 @@ Yabaas::Application.routes.draw do
     delete ':app_id/user/logout' => 'users#logout'
     post ':app_id/user' => 'users#create'
     get ':app_id/user/profile' => 'users#profile', as: :get_profile
- #   get ':app_id/user/:id' => 'users#show', as: :get_user
+    get ':app_id/user/:id' => 'users#show', as: :get_user
     post ':app_id/:resource' => 'resources#create'
+    get ':app_id/:resource/:id' => 'resources#show'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

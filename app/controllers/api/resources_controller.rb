@@ -8,6 +8,11 @@ class Api::ResourcesController < Api::ApiController
     render json: result
   end
 
+  def show
+    resource = @resource_service.get(@app._id, params[:resource],params[:id])
+    render json: remove_private_params(resource)
+  end
+
   private
 
   def set_resource_service

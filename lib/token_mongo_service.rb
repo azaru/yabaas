@@ -2,6 +2,7 @@ class TokenMongoService < BaseService
 
   def get_from_token app, token
     db_token = token_repository.get_from_token app, token
+  #  token_repository.update_token_expiration app, db_token
     user_repository.find_by_id(app, db_token['obj_id'])
   end
 
