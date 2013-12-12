@@ -13,9 +13,10 @@ Yabaas::Application.routes.draw do
     get ':app_id/user' => 'users#index'
     get ':app_id/user/profile' => 'users#profile', as: :get_profile
     get ':app_id/user/:id' => 'users#show', as: :get_user
+    post ':app_id/user/:resource' => 'resources#create', defaults: { _private: true } 
     get ':app_id/:resource' => 'resources#index'
-    post ':app_id/:resource' => 'resources#create'
-    get ':app_id/:resource/:id' => 'resources#show'
+    post ':app_id/:resource' => 'resources#create', defaults: { _private: false }
+    get ':app_id/:resource/:id' => 'resources#show', as: :get_resource
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
