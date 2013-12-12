@@ -16,4 +16,8 @@ class UserMongoRepository < BaseMongoRepository
   def find_by_id(app, id)
     database(app, :users).find( { _id: id }).one
   end
+
+  def get_all app
+    database(app, :users).find()
+  end
 end

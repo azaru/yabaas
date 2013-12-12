@@ -33,6 +33,10 @@ class UsersService < BaseService
     token_repository.delete_token(app, token)
   end
 
+  def get_all(app)
+    users_repository.get_all app
+  end
+
   private
 
   def applicaton_repository 

@@ -25,6 +25,12 @@ class Api::UsersController < Api::ApiController
   end
 
   def show
+    render :nothing => true, :status => :ok
+  end
+
+  def index
+    users = @users_service.get_all(@app._id)
+    render json: users.reduce([]) {|memo, user| memo << user['_id'].to_s}
   end
 
   def profile
