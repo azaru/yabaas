@@ -8,7 +8,7 @@ class Api::ApiController < ApplicationController
 
   private
   def set_token_service
-    @token_service ||= TokenMongoService.new
+    @token_service ||= TokenService.new
   end
 
   def request_to_json

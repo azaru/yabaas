@@ -4,12 +4,12 @@ class UserMongoRepository < BaseMongoRepository
     database(app,:users).insert(user)
   end
 
-  def exists_user_with_email(email, app)
+  def exists_user_with_email(app, email)
     number_of_users = database(app,:users).find(email: email).count
     number_of_users != 0
   end
 
-  def find_user(email, app)
+  def find_user(app, email)
     database(app, :users).find(email: email).one
   end
 

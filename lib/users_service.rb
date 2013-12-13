@@ -4,9 +4,9 @@ class UsersService < BaseService
   
     application = applicaton_repository.by_id(app)
     result = false
-    unless users_repository.exists_user_with_email(new_user["email"], application._id) 
+    unless users_repository.exists_user_with_email(application._id, new_user["email"]) 
       users_repository.insert(application._id, new_user) 
-      result = users_repository.find_user(new_user["email"], application._id)
+      result = users_repository.find_user(application._id, new_user["email"])
     end
 
     #TODO : Devolver errores 
@@ -19,7 +19,7 @@ class UsersService < BaseService
     
     return false if application == nil
 
-    user_in_db = users_repository.find_user(user["email"], application._id)
+    user_in_db = users_repository.find_user(application._id, user["email"])
 
     if (user_in_db && user["email"] == user_in_db['email'] && user["password"] == user_in_db['password'])
       user_in_db["token"] = token_repository.new_token(app, user_in_db)

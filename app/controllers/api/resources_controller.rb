@@ -33,7 +33,7 @@ class Api::ResourcesController < Api::ApiController
   end
 
   def set_resource_service
-    @resource_service ||= ResourceMongoService.new
+    @resource_service ||= ResourceService.new
   end
 
   def set_user

@@ -1,4 +1,4 @@
-class ResourceMongoService < BaseService
+class ResourceService < BaseService
 
   def create app, resource_name, resource_data, user_id
     resource_data['_user_id'] = user_id

@@ -1,4 +1,4 @@
-class TokenMongoService < BaseService
+class TokenService < BaseService
 
   def get_from_token app, token
     db_token = token_repository.get_from_token app, token

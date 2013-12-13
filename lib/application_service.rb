@@ -1,4 +1,4 @@
-class ApplicationMongoService
+class ApplicationService
   
   def applicaton_repository 
     ApplicationMongoRepository.new
