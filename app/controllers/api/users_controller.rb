@@ -41,7 +41,7 @@ class Api::UsersController < Api::ApiController
   private
 
   def prepare_user user, app
-    user['uri'] = api_get_user_path @app._id, user["_id"]
+    user['url'] = api_get_user_path @app._id, user["_id"]
     user = remove_private_params user
     user.delete("password")
     user

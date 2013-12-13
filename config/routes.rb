@@ -13,10 +13,10 @@ Yabaas::Application.routes.draw do
     post ':app_id/users/user' => 'api#denegate'
     post ':app_id/users/token' => 'api#denegate'
 
+    post ':app_id/friendships' => 'social#create_follow'
     post ':app_id/users/:resource' => 'resources#create', defaults: { _private: true } 
     post ':app_id/:resource' => 'resources#create', defaults: { _private: false }
 
-    post ':app_id/friendships' => 'social#create_follow'
 
 
     get ':app_id/users' => 'users#index'

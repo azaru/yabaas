@@ -1,7 +1,6 @@
 class Api::ResourcesController < Api::ApiController
   before_filter :auth_token
   before_action :set_resource_service
-  before_action :set_user
 
   def create
     resource = request_to_json
@@ -24,23 +23,21 @@ class Api::ResourcesController < Api::ApiController
   end
 
   def index
-    resources = @resource_service.get_all(@app._id, request.path_parameters[:resource])
+    resource = request.path_parameters[:resource]
+    token = request.headers['token']
+    resources = @resource_service.get_all(@app._id, resource, token)
     render json: resources
   end
 
   private
 
   def prepare_resource resource
-    resource['uri'] = api_get_resource_path @app._id, request.path_parameters[:resource], resource['_id']
+    resource['url'] = api_get_resource_path @app._id, request.path_parameters[:resource], resource['_id']
     # eliminar la metainformacion en servicio (es parte de la logica y puede cambiarse)
     resource = remove_private_params resource
   end
 
   def set_resource_service
     @resource_service ||= ResourceService.new
-  end
-
-  def set_user
-    @user = @token_service.get_from_token(@app._id, request.headers['token'])
   end
 end

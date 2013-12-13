@@ -13,8 +13,9 @@ class UserMongoRepository < BaseMongoRepository
     database(app, :users).find(email: email).one
   end
 
-  def find_by_id(app, id)
-    database(app, :users).find( { _id: id }).one
+  def find_by_id(app, id, one=true)
+    result = database(app, :users).find( { _id: id })
+    one ? result.one : result
   end
 
   def get_all app

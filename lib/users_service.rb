@@ -35,6 +35,12 @@ class UsersService < BaseService
     users_repository.get_all app
   end
 
+  def follow(app, user_id, token)
+    main_user = token_service.get_from_token(app, token)
+    user_to_follow = users_repository.find_by_id(app, user_id)
+    
+  end
+
   private
 
   def applicaton_repository 
@@ -47,6 +53,10 @@ class UsersService < BaseService
 
   def token_repository
     TokenMongoRepository.new
+  end
+
+  def token_service
+    TokenService.new  
   end
 
 end

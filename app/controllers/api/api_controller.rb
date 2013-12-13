@@ -23,7 +23,6 @@ class Api::ApiController < ApplicationController
   end
 
 
-
   def set_user_service
      @users_service ||= UsersService.new
   end
