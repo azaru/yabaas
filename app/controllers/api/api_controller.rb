@@ -11,28 +11,33 @@ class Api::ApiController < ApplicationController
     @token_service ||= TokenService.new
   end
 
-  def request_to_json
-    sanitize_input JSON.parse(request.raw_post)
-  end
-
-  def set_user_service
-     @users_service ||= UsersService.new
-  end
-
-  def set_application_repository
-     @application_repository ||= ApplicationMongoRepository.new
-  end
-
-  def set_app_if_exist
-    @app = set_application_repository.by_id(request.path_parameters[:app_id])
-    render :nothing => true, :status => :bad_request if @app == nil
-  end
-
   def auth_token
     set_token_service
     token_exist = @token_service.token_exist?(@app._id, request.headers["token"])
     render :nothing => true, :status => :unauthorized unless token_exist  
   end
+
+
+  def request_to_json
+    sanitize_input JSON.parse(request.raw_post)
+  end
+
+
+
+  def set_user_service
+     @users_service ||= UsersService.new
+  end
+
+  def set_application_service
+     @application_service ||= ApplicationService.new
+  end
+
+  def set_app_if_exist
+    @app = set_application_service.by_id(request.path_parameters[:app_id])
+    render :nothing => true, :status => :bad_request if @app == nil
+  end
+
+
 
   def sanitize_input hash_object
     hash_object.reject {|key, value| key[0,1] == '_' && key != '_private' }

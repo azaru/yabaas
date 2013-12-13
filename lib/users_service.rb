@@ -15,13 +15,10 @@ class UsersService < BaseService
   end
 
   def sign_in(app, user)
-    application = applicaton_repository.by_id(app)
-    
-    return false if application == nil
 
-    user_in_db = users_repository.find_user(application._id, user["email"])
+    user_in_db = users_repository.find_user(app, user["email"])
 
-    if (user_in_db && user["email"] == user_in_db['email'] && user["password"] == user_in_db['password'])
+    if (user_in_db && user["password"] == user_in_db['password'])
       user_in_db["token"] = token_repository.new_token(app, user_in_db)
       user_in_db
     else
@@ -30,6 +27,7 @@ class UsersService < BaseService
   end
 
   def sign_out(app, token)
+    #TODO: El usuario que borra el token es el mismo que esta en el token
     token_repository.delete_token(app, token)
   end
 
