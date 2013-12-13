@@ -6,7 +6,7 @@ class BaseMongoRepository
 
   def database(db,coll) 
     session = connection
-    session.with(safe: true)
+  #  session.with(safe: true)
     session.use db.to_s
     session[coll.to_s]
   end
