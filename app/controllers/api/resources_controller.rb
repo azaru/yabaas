@@ -25,15 +25,30 @@ class Api::ResourcesController < Api::ApiController
   def index
     resource = request.path_parameters[:resource]
     token = request.headers['token']
-    resources = @resource_service.get_all(@app._id, resource, token)
-    render json: resources
+    query = prepare_query
+    resources = @resource_service.get_all(@app._id, resource, token, query)
+    render json: resources.reduce([]) { |memo, resource| memo << prepare_resource(resource) }
   end
 
   private
 
+  def prepare_query
+    query = {}
+    if params.has_key?(:query)
+      query = JSON.parse(params['query'])
+    end
+    if request.path_parameters.has_key?(:user_id) 
+        if BSON::ObjectId.legal?(request.path_parameters[:user_id])
+          query['_user_id'] = BSON::ObjectId.from_string(request.path_parameters[:user_id])
+        else
+          query['_user_id'] = BSON::ObjectId.new
+        end
+    end
+    query
+  end
+
   def prepare_resource resource
     resource['url'] = api_get_resource_path @app._id, request.path_parameters[:resource], resource['_id']
-    # eliminar la metainformacion en servicio (es parte de la logica y puede cambiarse)
     resource = remove_private_params resource
   end
 

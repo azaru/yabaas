@@ -13,7 +13,7 @@ Yabaas::Application.routes.draw do
     post ':app_id/users/user' => 'api#denegate'
     post ':app_id/users/token' => 'api#denegate'
 
-    post ':app_id/friendships' => 'social#create_follow'
+#    post ':app_id/followers' => 'social#create_follow'
     post ':app_id/users/:resource' => 'resources#create', defaults: { _private: true } 
     post ':app_id/:resource' => 'resources#create', defaults: { _private: false }
 
@@ -21,6 +21,7 @@ Yabaas::Application.routes.draw do
 
     get ':app_id/users' => 'users#index'
     get ':app_id/users/:id' => 'users#show', as: :get_user
+    get ':app_id/users/:user_id/:resource' => 'resources#index'
 
     get ':app_id/tokens' => 'api#denegate'
     get ':app_id/tokens/:id' => 'api#denegate'

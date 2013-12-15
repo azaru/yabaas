@@ -31,8 +31,8 @@ class UsersService < BaseService
     token_repository.delete_token(app, token)
   end
 
-  def get_all(app)
-    users_repository.get_all app
+  def get_all(app, query = {})
+    users_repository.get_all app, query
   end
 
   def follow(app, user_id, token)
@@ -57,6 +57,11 @@ class UsersService < BaseService
 
   def token_service
     TokenService.new  
+  end
+
+  def remove_private_params hash_object
+    hash_object.reject {|key, value| key[0,1] == '_' }
+    hash_object.delete("password")
   end
 
 end

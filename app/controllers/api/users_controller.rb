@@ -29,13 +29,9 @@ class Api::UsersController < Api::ApiController
   end
 
   def index
-    users = @users_service.get_all(@app._id)
-    render json: users.reduce([]) {|memo, user| memo << user['_id'].to_s}
-  end
-
-  def profile
-    user = @token_service.get_from_token(@app._id, request.headers['token'])
-    render json: prepare_user(user, @app._id)
+    query =  params.has_key?('query') ? JSON.parse(params['query']) : {}
+    users = @users_service.get_all(@app._id, query)
+    render json: users.reduce([]) {|memo, user| memo << user['_id'] }
   end
 
   private

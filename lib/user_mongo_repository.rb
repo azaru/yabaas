@@ -18,7 +18,7 @@ class UserMongoRepository < BaseMongoRepository
     one ? result.one : result
   end
 
-  def get_all app
-    database(app, :users).find()
+  def get_all app, query
+    database(app, :users).find(query)
   end
 end
