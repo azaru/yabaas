@@ -15,7 +15,6 @@ class UsersService < BaseService
   end
 
   def sign_in(app, user)
-
     user_in_db = users_repository.find_user(app, user["email"])
 
     if (user_in_db && user["password"] == user_in_db['password'])
@@ -35,13 +34,13 @@ class UsersService < BaseService
     users_repository.get_all app, query
   end
 
-  def follow(app, user_id, token)
-    main_user = token_service.get_from_token(app, token)
-    user_to_follow = users_repository.find_by_id(app, user_id)
-    
-  end
+
 
   private
+
+  def resource_service
+    ResourceService.new
+  end
 
   def applicaton_repository 
     ApplicationMongoRepository.new

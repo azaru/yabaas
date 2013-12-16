@@ -8,6 +8,9 @@ class ResourceMongoRepository  < BaseMongoRepository
   end
 
   def get_all app, resource_name, query
+    puts '--------------------'
+    puts query
+    puts '--------------------'
     database(app, resource_name).find(query)
   end
 end

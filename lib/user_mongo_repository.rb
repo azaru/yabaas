@@ -14,6 +14,7 @@ class UserMongoRepository < BaseMongoRepository
   end
 
   def find_by_id(app, id, one=true)
+    id = BSON::ObjectId.from_string(id) if id.instance_of?(String)
     result = database(app, :users).find( { _id: id })
     one ? result.one : result
   end

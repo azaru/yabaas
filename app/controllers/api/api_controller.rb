@@ -36,13 +36,24 @@ class Api::ApiController < ApplicationController
     render :nothing => true, :status => :bad_request if @app == nil
   end
 
-
-
   def sanitize_input hash_object
     hash_object.reject {|key, value| key[0,1] == '_' && key != '_private' }
   end
   
   def remove_private_params hash_object
     hash_object.reject {|key, value| key[0,1] == '_' }
+  end
+
+  def prepare_resource resource
+    resource['url'] = api_get_resource_path @app._id, request.path_parameters[:resource], resource['_id']
+    resource = remove_private_params resource
+  end
+
+  def set_resource_service
+    @resource_service ||= ResourceService.new
+  end
+
+  def set_social_service
+    @social_service ||= SocialService.new
   end
 end

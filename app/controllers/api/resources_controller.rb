@@ -47,12 +47,4 @@ class Api::ResourcesController < Api::ApiController
     query
   end
 
-  def prepare_resource resource
-    resource['url'] = api_get_resource_path @app._id, request.path_parameters[:resource], resource['_id']
-    resource = remove_private_params resource
-  end
-
-  def set_resource_service
-    @resource_service ||= ResourceService.new
-  end
 end
